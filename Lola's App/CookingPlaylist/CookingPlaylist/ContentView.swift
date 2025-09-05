@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import PDFKit
+import AuthenticationServices
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -36,7 +37,7 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: uploadFile) {
+                    Button(action: uploadFile) { // pressing the plus sign will lead you to uploading a new file
                         Label("Add Item", systemImage: "plus")
                     }.sheet(
                         isPresented: self.$showDocumentPicker, content: {DocumentPicker(onFilePick: onFilePick)}
@@ -49,12 +50,12 @@ struct ContentView: View {
     }
     
     private func uploadFile() {
-        self.showDocumentPicker = true
+        self.showDocumentPicker = true // opens files on phone
     }
     
     private func onFilePick(_ url: URL) {
         print("Picked file: \(url)")
-        let documentContent = NSMutableAttributedString()
+        let documentContent = NSMutableAttributedString() // a mutable string with associated attributes for portions of its text.
         
         if let pdf = PDFDocument(url: url) {
             let pageCount = pdf.pageCount
@@ -67,16 +68,17 @@ struct ContentView: View {
         }
         
         let documentContentString = documentContent.string.lowercased()
-        let cleanedString = documentContentString.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+        let cleanedString = documentContentString.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression) // clean up string so no extra white spaces
         
-        print(cleanedString)
-        
+        // initial explortaion of finding time in document
         if cleanedString.contains("minutes") || cleanedString.contains("mins") {
             print("is present in the sentence.")
         } else {
             print("is not present in the sentence.")
         }
-        addItem(url, documentContentString)
+        
+        addItem(url, documentContentString) // add new item to storage
+        SpotifyAPIController.shared.startAuthSession()
     }
 
     private func addItem(_ url: URL, _ documentContent: String) {

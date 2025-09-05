@@ -29,9 +29,22 @@
 		A687795C2E69DE2000CA1369 /* CookingPlaylistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookingPlaylistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A65A11532E6AF03E00CA6C29 /* Exceptions for "CookingPlaylist" folder in "CookingPlaylist" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A68779422E69DE1A00CA1369 /* CookingPlaylist */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A68779452E69DE1A00CA1369 /* CookingPlaylist */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A65A11532E6AF03E00CA6C29 /* Exceptions for "CookingPlaylist" folder in "CookingPlaylist" target */,
+			);
 			path = CookingPlaylist;
 			sourceTree = "<group>";
 		};
@@ -195,6 +208,8 @@
 			);
 			mainGroup = A687793A2E69DE1A00CA1369;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A68779442E69DE1A00CA1369 /* Products */;
 			projectDirPath = "";
@@ -397,6 +412,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CookingPlaylist/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -424,6 +440,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CookingPlaylist/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
