@@ -6,6 +6,6 @@ This repo houses the applications Lola and Sachin created for the first programm
 
 ## Lola's App - Cooking Playlist
 
-This appliction allows users to upload a pdf (of a recipe) and recive a playlist recommendation based on the total cook time of the recipe.
+This application allows users to upload a pdf (of a recipe) and recive a playlist recommendation based on the total cook time of the recipe.
 
 ## Sahcin's App - Expense Tracker
