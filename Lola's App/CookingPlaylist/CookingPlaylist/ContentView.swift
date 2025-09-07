@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 import PDFKit
 import AuthenticationServices
+import FirebaseFirestore
+import FirebaseCore
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext

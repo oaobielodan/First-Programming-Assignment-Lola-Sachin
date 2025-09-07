@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 import AuthenticationServices
 
-class SpotifyAPIController: NSObject {
+class SpotifyAPIController: NSObject, ObservableObject {
+    @Published var accessToken: String?
     static let shared = SpotifyAPIController()
     private var authSession: ASWebAuthenticationSession?
     
@@ -31,8 +32,8 @@ class SpotifyAPIController: NSObject {
             guard error == nil, let callbackURL = callbackURL else { return }
             
             let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems
-            let token = queryItems?.filter({ $0.name == "token" }).first?.value
-            print(token)
+            self.accessToken = queryItems?.filter({ $0.name == "token" }).first?.value
+            print(self.accessToken)
         }
         authSession.start()
     }
