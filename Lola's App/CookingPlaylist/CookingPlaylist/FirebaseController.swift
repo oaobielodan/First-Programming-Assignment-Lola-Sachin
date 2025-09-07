@@ -14,7 +14,7 @@ class FirebaseController {
         let db = Firestore.firestore()
         db.collection("user-recipes").addDocument(data: [
             "fileName": fileName,
-            "recipeURL": recipeURL,
+            "recipeURL": recipeURL.absoluteString,
             "title": title,
             "text": recipeText,
             "createdAt": Timestamp(date: Date())

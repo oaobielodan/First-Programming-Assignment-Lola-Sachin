@@ -27,7 +27,7 @@ struct ContentView: View {
                             Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
                         }
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(item.recipeName)
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -50,7 +50,7 @@ struct ContentView: View {
     }
     
     private func uploadFile() {
-        self.showDocumentPicker = true // opens files on phone
+        self.showDocumentPicker = true // opens files on device
     }
     
     private func onFilePick(_ url: URL) {
@@ -81,12 +81,12 @@ struct ContentView: View {
         }
         
         addItem(documentName, url, documentTitle, documentContentString) // add new item to storage
-        SpotifyAPIController.shared.startAuthSession()
+        SpotifyAPIController.shared.startAuthSession() // attempting
     }
 
     private func addItem(_ fileName: String, _ url: URL, _ title: String, _ documentContent: String) {
         withAnimation {
-            let newItem = Item(timestamp: Date(), recipeURL: url, documentContent: documentContent)
+            let newItem = Item(timestamp: Date(), recipeURL: url, recipeName: title, documentContent: documentContent)
             modelContext.insert(newItem) // as to model for view
             FirebaseController.shared.saveRecipeToFirestore(fileName, url, title, documentContent) // as to firebase for storage
         }
@@ -101,6 +101,7 @@ struct ContentView: View {
     }
 }
 
+// struct for picking documents from device file system
 struct DocumentPicker: UIViewControllerRepresentable {
     var onFilePick: (URL) -> Void
     
@@ -135,7 +136,6 @@ struct DocumentPicker: UIViewControllerRepresentable {
         }
     }
 }
-
 
 #Preview {
     ContentView()
