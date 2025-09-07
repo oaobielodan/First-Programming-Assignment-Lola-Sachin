@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A60F2DDE2E6E3A6700D60960 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = A60F2DDD2E6E3A6700D60960 /* FirebaseFunctions */; };
 		A62FA8F62E6D5B6100884C5C /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A62FA8F52E6D5B6100884C5C /* FirebaseCore */; };
 		A62FA8F82E6D5B6100884C5C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A62FA8F72E6D5B6100884C5C /* FirebaseDatabase */; };
 		A62FA8FA2E6D5B6100884C5C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A62FA8F92E6D5B6100884C5C /* FirebaseFirestore */; };
@@ -79,6 +80,7 @@
 				A62FA8F82E6D5B6100884C5C /* FirebaseDatabase in Frameworks */,
 				A62FA9002E6D5EF400884C5C /* FirebaseAuth in Frameworks */,
 				A62FA8FA2E6D5B6100884C5C /* FirebaseFirestore in Frameworks */,
+				A60F2DDE2E6E3A6700D60960 /* FirebaseFunctions in Frameworks */,
 				A62FA9022E6D5EF400884C5C /* FirebaseRemoteConfig in Frameworks */,
 				A62FA8FE2E6D5EF400884C5C /* FirebaseAnalyticsCore in Frameworks */,
 				A62FA9042E6D5EF400884C5C /* FirebaseStorage in Frameworks */,
@@ -104,12 +106,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A60F2DDC2E6E3A6700D60960 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A687793A2E69DE1A00CA1369 = {
 			isa = PBXGroup;
 			children = (
 				A68779452E69DE1A00CA1369 /* CookingPlaylist */,
 				A68779552E69DE2000CA1369 /* CookingPlaylistTests */,
 				A687795F2E69DE2000CA1369 /* CookingPlaylistUITests */,
+				A60F2DDC2E6E3A6700D60960 /* Frameworks */,
 				A68779442E69DE1A00CA1369 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,6 +162,7 @@
 				A62FA8FF2E6D5EF400884C5C /* FirebaseAuth */,
 				A62FA9012E6D5EF400884C5C /* FirebaseRemoteConfig */,
 				A62FA9032E6D5EF400884C5C /* FirebaseStorage */,
+				A60F2DDD2E6E3A6700D60960 /* FirebaseFunctions */,
 			);
 			productName = CookingPlaylist;
 			productReference = A68779432E69DE1A00CA1369 /* CookingPlaylist.app */;
@@ -608,6 +619,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A60F2DDD2E6E3A6700D60960 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A65A115A2E6D37A100CA6C29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
 		A62FA8F52E6D5B6100884C5C /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A65A115A2E6D37A100CA6C29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

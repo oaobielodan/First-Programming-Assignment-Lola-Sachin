@@ -87,8 +87,9 @@ struct ContentView: View {
     private func addItem(_ fileName: String, _ url: URL, _ title: String, _ documentContent: String) {
         withAnimation {
             let newItem = Item(timestamp: Date(), recipeURL: url, recipeName: title, documentContent: documentContent)
-            modelContext.insert(newItem) // as to model for view
-            FirebaseController.shared.saveRecipeToFirestore(fileName, url, title, documentContent) // as to firebase for storage
+            modelContext.insert(newItem) // add to model for view
+            FirebaseController.shared.saveRecipeToFirestore(fileName, url, title, documentContent) // add to firebase for storage
+            FirebaseController.shared.getPlaylist("rock", 30) // get playlist for user
         }
     }
 

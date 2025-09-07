@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFunctions
 
 class FirebaseController {
     static let shared = FirebaseController()
@@ -26,5 +27,21 @@ class FirebaseController {
             }
         }
     }
+    
+    func getPlaylist(_ genre: String, _ length: Int) {
+        
+        let functions = Functions.functions()
+        functions.useEmulator(withHost: "localhost", port: 5001)
+        
+        functions.httpsCallable("addPlaylist").call(["genre": genre, "length": length]) { result, error in
+            if let error = error as NSError? {
+                print("error getting playlist: \(error)")
+            }
+            if let data = result?.data as? [String: Any],
+               let genre = data["genre"] as? String,
+               let length = data["length"] as? String {
+                print("genre: \(genre), length \(length)")
+            }
+        }
+    }
 }
-
