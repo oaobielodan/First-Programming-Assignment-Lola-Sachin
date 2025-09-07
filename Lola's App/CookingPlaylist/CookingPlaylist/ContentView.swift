@@ -54,10 +54,13 @@ struct ContentView: View {
     }
     
     private func onFilePick(_ url: URL) {
-        print("Picked file: \(url)")
+        let documentName = url.lastPathComponent
+        var documentTitle = "n/a"
         let documentContent = NSMutableAttributedString() // a mutable string with associated attributes for portions of its text.
         
+        // gets all the text from the file
         if let pdf = PDFDocument(url: url) {
+            documentTitle = pdf.documentAttributes?[PDFDocumentAttribute.titleAttribute] as! String
             let pageCount = pdf.pageCount
 
             for i in 0 ..< pageCount {
@@ -77,15 +80,15 @@ struct ContentView: View {
             print("is not present in the sentence.")
         }
         
-        addItem(url, documentContentString) // add new item to storage
+        addItem(documentName, url, documentTitle, documentContentString) // add new item to storage
         SpotifyAPIController.shared.startAuthSession()
     }
 
-    private func addItem(_ url: URL, _ documentContent: String) {
+    private func addItem(_ fileName: String, _ url: URL, _ title: String, _ documentContent: String) {
         withAnimation {
             let newItem = Item(timestamp: Date(), recipeURL: url, documentContent: documentContent)
-            modelContext.insert(newItem)
-            FirebaseController.shared.saveRecipeToFirestore(recipeText: documentContent)
+            modelContext.insert(newItem) // as to model for view
+            FirebaseController.shared.saveRecipeToFirestore(fileName, url, title, documentContent) // as to firebase for storage
         }
     }
 

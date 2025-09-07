@@ -10,9 +10,12 @@ import FirebaseFirestore
 class FirebaseController {
     static let shared = FirebaseController()
     
-    func saveRecipeToFirestore(recipeText: String) {
+    func saveRecipeToFirestore(_ fileName: String, _ recipeURL: URL, _ title: String, _ recipeText: String) {
         let db = Firestore.firestore()
         db.collection("user-recipes").addDocument(data: [
+            "fileName": fileName,
+            "recipeURL": recipeURL,
+            "title": title,
             "text": recipeText,
             "createdAt": Timestamp(date: Date())
         ]) { error in
