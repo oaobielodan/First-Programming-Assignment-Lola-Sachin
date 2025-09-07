@@ -9,8 +9,6 @@ import SwiftUI
 import SwiftData
 import PDFKit
 import AuthenticationServices
-import FirebaseFirestore
-import FirebaseCore
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -87,6 +85,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Item(timestamp: Date(), recipeURL: url, documentContent: documentContent)
             modelContext.insert(newItem)
+            FirebaseController.shared.saveRecipeToFirestore(recipeText: documentContent)
         }
     }
 
