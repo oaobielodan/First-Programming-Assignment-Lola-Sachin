@@ -1,0 +1,53 @@
+# Built application files
+*.apk
+*.ap_/*.ap_ 
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+
+# Gradle files
+.gradle/
+build/
+*/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+
+# Android Studio
+.idea/
+*.iml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (uncomment if you prefer to keep private)
+# app/google-services.json
+
+# Firebase Crashlytics
+fabric.properties
+
+# NDK
+obj/
+.externalNativeBuild/
+.cxx/
+
+# Misc
+.DS_Store
