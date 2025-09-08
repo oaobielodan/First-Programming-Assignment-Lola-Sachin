@@ -27,7 +27,12 @@ struct ContentView: View {
                             Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
                         }
                     } label: {
-                        Text(item.recipeName)
+                        VStack(alignment: .leading) {
+                            Text(item.recipeName)
+                            Text("⏱️ \(item.cookingTime)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -73,20 +78,32 @@ struct ContentView: View {
         let documentContentString = documentContent.string.lowercased()
         let cleanedString = documentContentString.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression) // clean up string so no extra white spaces
         
-        // initial explortaion of finding time in document
-        if cleanedString.contains("minutes") || cleanedString.contains("mins") {
-            print("is present in the sentence.")
-        } else {
-            print("is not present in the sentence.")
-        }
+        // Extract cooking time from document
+        let cookingTime = extractCookingTime(from: cleanedString)
         
-        addItem(documentName, url, documentTitle, documentContentString) // add new item to storage
-        SpotifyAPIController.shared.startAuthSession() // attempting
+        addItem(documentName, url, documentTitle, documentContentString, cookingTime) // add new item to storage
+        // SpotifyAPIController.shared.startAuthSession() // attempting
     }
 
-    private func addItem(_ fileName: String, _ url: URL, _ title: String, _ documentContent: String) {
+    private func extractCookingTime(from text: String) -> String {
+        let patterns = [
+            "\\b(\\d+)\\s*(?:minutes?|mins?)\\b",
+            "\\b(\\d+)\\s*(?:hours?|hrs?)\\b",
+            "\\b(\\d+)\\s*(?:seconds?|secs?)\\b"
+        ]
+        
+        for pattern in patterns {
+            if let range = text.range(of: pattern, options: .regularExpression) {
+                let match = String(text[range])
+                return match.capitalized
+            }
+        }
+        return "Unknown"
+    }
+    
+    private func addItem(_ fileName: String, _ url: URL, _ title: String, _ documentContent: String, _ cookingTime: String) {
         withAnimation {
-            let newItem = Item(timestamp: Date(), recipeURL: url, recipeName: title, documentContent: documentContent)
+            let newItem = Item(timestamp: Date(), recipeURL: url, recipeName: title, documentContent: documentContent, cookingTime: cookingTime)
             modelContext.insert(newItem) // add to model for view
             FirebaseController.shared.saveRecipeToFirestore(fileName, url, title, documentContent) // add to firebase for storage
             FirebaseController.shared.getPlaylist("rock", 30) // get playlist for user

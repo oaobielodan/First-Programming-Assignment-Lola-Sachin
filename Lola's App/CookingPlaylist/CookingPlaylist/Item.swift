@@ -14,11 +14,13 @@ final class Item {
     var recipeURL: URL
     var recipeName: String
     var documentContent: String
+    var cookingTime: String
     
-    init(timestamp: Date, recipeURL: URL, recipeName: String, documentContent: String) {
+    init(timestamp: Date, recipeURL: URL, recipeName: String, documentContent: String, cookingTime: String = "Unknown") {
         self.timestamp = timestamp
         self.recipeURL = recipeURL
         self.recipeName = recipeName
         self.documentContent = documentContent
+        self.cookingTime = cookingTime
     }
 }

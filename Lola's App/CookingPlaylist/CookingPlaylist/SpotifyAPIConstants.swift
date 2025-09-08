@@ -6,7 +6,7 @@
 //
 
 enum SpotifyAPIConstants {
-    static let apiHost = "api.sspotify.com"
+    static let apiHost = "api.spotify.com"
     static let authorizeHost = "accounts.spotify.com"
     static let clientId = "abc6f3a92343420385f92f1140556465"
     static let redirectURI = "cookingplaylist://callback"
