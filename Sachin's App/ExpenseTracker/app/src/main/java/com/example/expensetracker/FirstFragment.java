@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,26 +19,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.example.expensetracker.databinding.FragmentFirstBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FirstFragment extends Fragment {
-
     private FragmentFirstBinding binding;
     private EditText editDescription, editAmount;
     private Button btnAddExpense;
-    private ListView listExpenses;
-    private ArrayList<String> expenses;
-    private ArrayAdapter<String> adapter;
-
+    private List<Expense> expenses = new ArrayList<>();
+    private ExpenseAdapter adapter;
     private DatabaseReference databaseReference;
 
-
+    private RecyclerView listExpenses;
 
    private TextView textTotal;
    private double total = 0.0;
-
-
-
-
 
 
     @Override
@@ -53,19 +46,19 @@ public class FirstFragment extends Fragment {
 
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference("expenses");
 
-
         editDescription = view.findViewById(R.id.editDescription);
         editAmount = view.findViewById(R.id.editAmount);
         btnAddExpense = view.findViewById(R.id.btnAddExpense);
-        listExpenses = view.findViewById(R.id.listExpenses);
+        listExpenses = view.findViewById(R.id.recyclerExpenses);
         textTotal = view.findViewById(R.id.textTotal);
 
-        expenses = new ArrayList<>();
-        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, expenses);
+        adapter = new ExpenseAdapter(expenses);
+        listExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
         listExpenses.setAdapter(adapter);
 
         btnAddExpense.setOnClickListener(v -> {
@@ -74,17 +67,16 @@ public class FirstFragment extends Fragment {
 
             if (!desc.isEmpty() && !amountText.isEmpty()) {
                 double amount = Double.parseDouble(amountText);
-                expenses.add(desc + " - $" + amount);
+                Expense expense = new Expense(desc, amount);
+                expenses.add(expense);
                 total += amount;
 
                 String expenseId = databaseReference.push().getKey();
                 if (expenseId != null) {
-                    Expense expense = new Expense(desc, amountText);
                     databaseReference.child(expenseId).setValue(expense);
                 }
 
-
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemInserted(expenses.size() - 1);
 
                 textTotal.setText("Total: $" + String.format("%.2f", total));
 
